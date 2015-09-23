@@ -1,0 +1,91 @@
+@charset "utf-8";
+
+$brand: #0087E3;
+$high:  #81b900;
+$black: #000;
+$dark:  #333;
+$light: #eee;
+$white: #fff;
+
+@import "normalize";
+@import "fonts";
+
+html,body {
+  font-family: "Mark", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+header {
+  background: $brand;
+  padding: 0.25rem;
+
+  & > * {
+    @extend .inner-content;
+  }
+
+  h1,
+  h1 a {
+    font-size: 4.5rem;
+    line-height: 0.5;
+    color: $black;
+  }
+
+  h2,
+  nav span,
+  nav a {
+    font-size: 1.5rem;
+    color: $white;
+    font-weight: normal;
+    text-decoration: none;
+  }
+}
+
+.inner-content {
+  max-width: 60em;
+  margin: 2em auto;
+  padding: 0 1em;
+}
+
+h1,h2,h3 {
+  text-transform: lowercase;
+}
+
+h1 {
+  font-size: 2rem;
+}
+
+hr {
+  margin: 0 10px;
+  border: 0;
+  height: 0;
+  margin: 5px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.content {
+  background: #ffffff;
+
+  & > div {
+    @extend .inner-content;
+  }
+}
+
+.btn {
+  display: inline-block;
+  vertical-align: middle;
+  cursor: pointer;
+  text-align: center;
+  user-select: none;
+  border-radius: 500px;
+  color: $white;
+  background: $high;
+  padding: 6px 20px;
+  margin-right: 1em;
+  text-decoration: none;
+}
