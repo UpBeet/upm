@@ -351,22 +351,22 @@ table {
   font-family: "Mark";
   font-style: normal;
   font-weight: normal;
-  src: url("/fonts/markregular-webfont.eot?") format("eot"), url("/fonts/markregular-webfont.woff2") format("woff2"), url("/fonts/markregular-webfont.woff") format("woff"), url("/fonts/markregular-webfont.ttf") format("truetype"), url("/fonts/markregular-webfont.svg#Mark") format("svg"); }
+  src: url("../fonts/markregular-webfont-44d5fa42.eot?") format("eot"), url("../fonts/markregular-webfont-d18f4692.woff2") format("woff2"), url("../fonts/markregular-webfont-e4d426b5.woff") format("woff"), url("../fonts/markregular-webfont-645a905a.ttf") format("truetype"), url("../fonts/markregular-webfont-f84139fe.svg#Mark") format("svg"); }
 @font-face {
   font-family: "Mark";
   font-style: italic;
   font-weight: normal;
-  src: url("/fonts/markregularitalic-webfont.eot?") format("eot"), url("/fonts/markregularitalic-webfont.woff2") format("woff2"), url("/fonts/markregularitalic-webfont.woff") format("woff"), url("/fonts/markregularitalic-webfont.ttf") format("truetype"), url("/fonts/markregularitalic-webfont.svg#Mark") format("svg"); }
+  src: url("../fonts/markregularitalic-webfont-935702db.eot?") format("eot"), url("../fonts/markregularitalic-webfont-8246710e.woff2") format("woff2"), url("../fonts/markregularitalic-webfont-8de7fb88.woff") format("woff"), url("../fonts/markregularitalic-webfont-4087b988.ttf") format("truetype"), url("../fonts/markregularitalic-webfont-dd24a527.svg#Mark") format("svg"); }
 @font-face {
   font-family: "Mark";
   font-style: normal;
   font-weight: bold;
-  src: url("/fonts/markbold-webfont.eot?") format("eot"), url("/fonts/markbold-webfont.woff2") format("woff2"), url("/fonts/markbold-webfont.woff") format("woff"), url("/fonts/markbold-webfont.ttf") format("truetype"), url("/fonts/markbold-webfont.svg#Mark") format("svg"); }
+  src: url("../fonts/markbold-webfont-1ebf3516.eot?") format("eot"), url("../fonts/markbold-webfont-988c5a8d.woff2") format("woff2"), url("../fonts/markbold-webfont-730cf438.woff") format("woff"), url("../fonts/markbold-webfont-95e2148c.ttf") format("truetype"), url("../fonts/markbold-webfont-4d192c48.svg#Mark") format("svg"); }
 @font-face {
   font-family: "Mark";
   font-style: italic;
   font-weight: bold;
-  src: url("/fonts/markbolditalic-webfont.eot?") format("eot"), url("/fonts/markbolditalic-webfont.woff2") format("woff2"), url("/fonts/markbolditalic-webfont.woff") format("woff"), url("/fonts/markbolditalic-webfont.ttf") format("truetype"), url("/fonts/markbolditalic-webfont.svg#Mark") format("svg"); }
+  src: url("../fonts/markbolditalic-webfont.eot?") format("eot"), url("../fonts/markbolditalic-webfont.woff2") format("woff2"), url("../fonts/markbolditalic-webfont.woff") format("woff"), url("../fonts/markbolditalic-webfont.ttf") format("truetype"), url("../fonts/markbolditalic-webfont.svg#Mark") format("svg"); }
 /* line 13, /Users/willpaul/Sites/upm/source/stylesheets/main.scss */
 html, body {
   font-family: "Mark", sans-serif;
