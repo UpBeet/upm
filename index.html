@@ -1,0 +1,134 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <!-- Always force latest IE rendering engine or request Chrome Frame -->
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+
+    <!-- Use title if it's in the page YAML frontmatter -->
+    <title>UPM: take ownership of your music meta-data.</title>
+
+    <link href="/stylesheets/main.css" rel="stylesheet" />
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+
+    <script src="/javascripts/main.js"></script>
+  </head>
+
+  <body class="index">
+    <header>
+      <div>
+        <h1>upm</h1>
+      </div>
+    </header>
+    <section class="content">
+  <div>
+    <h2>[working title] Universal Playlist Manager (upm):<br>
+        Take ownership of your music meta-data.</h2>
+
+    <h2><i>Objective:</i> Create a tool to sync music playlist data between cloud-platforms and local music collections.</h2>
+
+    <h2>Context</h2>
+
+    <p>As the web has web has evolved over the last several decades there has been a fundamental shift away from local ownership towards cloud-based subscription services. We no longer purchase or download, only consume. In this new environment all our media libraries are basically identical and it is only what you do with them, your meta-data, which sets it apart.</p>
+
+    <p>On the surface this seems like a positive for most parties involved. However, when a company goes under (e.g. Grooveshark) or you switch providers, what happens to all that meta-data? What emerges is a proprietary system that promotes vendor lock-in and in the case of Grooveshark instant, massive data loss.</p>
+
+    <p>While Last.fm mostly solves the analytics problem, there are no free/open solutions for maintaining playlists across cloud and local services and that is the gap I am trying to fill with this project.</p>
+
+    <h2>Description</h2>
+
+    <p>I want to create an open source platform that can be run in the cloud or locally. This means creating a web client that can run in GitHub's Electron (so we can access the local filesystem) and a server that can be easily deployed to the cloud or run locally in the background. It will sync playlists between your local filesystem and other cloud music platforms (Spotify, YouTube, etc.).</p>
+
+    <h2>Competitive research</h2>
+
+    <p>The only real competitor I can find is <a href="http://soundiiz.com/#/converter" target="_BLANK">soundiiz</a>, a web app that supports number of formats including Spotify, YouTube, and local. There are two major problems with Soundiiz, first it is closed source and just yet another black box system that could go down at any time and also since it runs as a web app it can not access your local filesystem to create local playlists, it can only go from local to cloud.</p>
+
+    <h2>Methods</h2>
+
+    <p>Fundamentally, we're dealing with an ordered lists of variables mapped to media stored somewhere, it could be far more complex than that (e.g. iTunes deeply nested XML), but that is the least common denominator. The main trick with syncing is resolving the media references across platforms and resolving ordering discrepancies. As far as I can tell there are three types of media references commonly in use:</p>
+
+    <ul>
+      <li>Local file-system paths, with all other meta-data attached to the file. (e.g. .m3u, .pls, iTunes)</li>
+      <li>URIs or UIDs that have a one-to-one mapping with real songs (e.g. Spotify, Rdio, also iTunes).</li>
+      <li>URIs or UIDs that may have a many-to-one mapping with real songs (e.g. 10 versions of a particular song on YouTube).</li>
+    </ul>
+
+    <p>To go between two of these we need some sort of global unique identifier to act as a go between. The two main sources for song meta-data are MusicBrainz (~19,000,000 song db and mostly public domain with some CC, so could be self hosted) and EchoNest (~30,000,000 song db and proprietary data).</p>
+
+    <p>For storing these cross-platform playlists the only major standards that were really options technically were the iTunes proprietary XML (ew) or W3C's SMIL (which was way more complex than needed for this application), so I will probably end up rolling my own XML/JSON schema.</p>
+
+    <p>From my perspective the MVP for this project will be syncing between two different types of the above platforms (probably Spotify and either YouTube or local .m3u) with a naive ordering resolution (I'm not sure how to do it tracking state changes, which isn't necessarily possible).</p>
+
+    <h2>Architecture</h2>
+
+    <p>This will be a system of independent users, with no social interaction between users. They could be authenticated through OAuth of their connected accounts or through local accounts.</p>
+
+    <h3>Server</h3>
+
+    <p>The bottleneck for this application is going to be waiting on external APIs and rate limiting. Because of this I think it's a good candidate for an event/message driven service based architecture, with each resolver living as it's own service possibly communicating over a message queue (e.g. RabbitMQ or Beanstalkd). At any rate, it should be as agnostic to the client as possible, because while I'm writing a web app for this iteration, I could definitely see the use in packaging it as a Linux daemon or command line tool as well.</p>
+
+    <p>I'm leaning towards using Node for the runtime, because asynchronous, event-driven programming is the default paradigm (though this would be easy enough to do in Ruby as well if there was a compelling reason to) and it will let me easily swap code between the client and the server as needed.</p>
+
+    <p>The database should obviously store the users and their 'master' playlists, the intermediate ones I don't think will be necessary, as they should be extractable from the master for basically free (no external APIs at least).</p>
+
+    <h3>Client</h3>
+
+    <p>For the client I want to write a web app, but still have access to the users file system. So the obvious choice is Github's Electron, which wraps IO.js and Chromium to bring web tech to desktop apps (a la Atom).</p>
+
+    <p>For a client side framework I'll probably go with some sort of Flux/React setup, though I'm going to keep the client pretty simple and focus primarily on the server.</p>
+
+    <h2>Potential libraries</h2>
+
+    <h3>Both</h3>
+    <ul>
+      <li>Passport - OAuth</li>
+      <li>Babel - ES6/7 transpiler</li>
+      <li>TravisCI - CI</li>
+      <li>Mocha/Chai/Sinon - Automatic testing tools</li>
+    </ul>
+
+    <h3>Server</h3>
+    <ul>
+      <li>Express - HTTP</li>
+      <li>RabbitMQ/Beanstalkd - Messaging queue</li>
+      <li>Redis - key/value store</li>
+      <li>Mongo or PostgreSQL - main data store</li>
+    </ul>
+
+    <h3>Client</h3>
+    <ul>
+      <li>Fluxxor</li>
+      <li>React</li>
+      <li>Ramda, for functional programming tools</li>
+      <li>CouchDB or SQLite</li>
+    </ul>
+
+    <h3>License</h3>
+
+    I'm going to try to release this under the Creative Commons 0, depending on library compatibility of course.
+
+    <h2>Future work</h2>
+
+    <p>History would be nice and I want to plan for it, but I think its way out of scope for this first iteration. It would be nice to have a local mirror of the MusicBrainz database as that could drastically improve performance, but it's also way to large to put on Heroku, so I'd have to setup a DigitalOcean instance or something. I have similar concerns with the Heroku Redis and MQ addons, the free tiers seem quite low in terms of throughput or memory.</p>
+  </div>
+</section>
+
+<!--
+Abstract
+High Level Concept
+A few paragraphs to describe the user experience, mechanics and how you imagine it will work.
+Discuss how it is a multi-user system
+Discuss the client platform and what will the client be written in
+Discuss how the server is used - what is it used for, how are users interacting with it, what data is the server storing, is any data synced between users
+Mockups of the user interface
+Discuss and put links to any inspirations you found online.
+Libraries you are thinking of using for both client and server.
+
+Controls
+Asset generation - Do you need assets, do you already have assets, will you make assets, if not how will you get assets
+-->
+
+
+  </body>
+</html>
