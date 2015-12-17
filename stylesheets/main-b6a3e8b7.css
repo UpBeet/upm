@@ -366,7 +366,7 @@ table {
   font-family: "Mark";
   font-style: italic;
   font-weight: bold;
-  src: url("../fonts/markbolditalic-webfont.eot?") format("eot"), url("../fonts/markbolditalic-webfont.woff2") format("woff2"), url("../fonts/markbolditalic-webfont.woff") format("woff"), url("../fonts/markbolditalic-webfont.ttf") format("truetype"), url("../fonts/markbolditalic-webfont.svg#Mark") format("svg"); }
+  src: url("../fonts/markbold-italic-webfont-1ea5bbf0.eot?") format("eot"), url("../fonts/markbold-italic-webfont-5529d18d.woff2") format("woff2"), url("../fonts/markbold-italic-webfont-2382bb37.woff") format("woff"), url("../fonts/markbold-italic-webfont-f537192a.ttf") format("truetype"), url("../fonts/markbold-italic-webfont-0c205710.svg#Mark") format("svg"); }
 /* line 13, /Users/willpaul/Sites/upm/source/stylesheets/main.scss */
 html, body {
   font-family: "Mark", sans-serif;
